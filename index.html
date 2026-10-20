@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>Instituto Universitario Internacional de Toluca - Egresados</title>
+<style>
+:root{--primary:#8b1e2d;--accent:#f9c400;--bg:#f6f7f9;--card:#ffffff;--text:#1a2332;--muted:#6b7a90;--border:#e5e8ef;--radius:16px}
+*{box-sizing:border-box}html{color-scheme:light}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Inter,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
+.header{position:sticky;top:0;z-index:10;background:var(--card);border-bottom:1px solid var(--border);backdrop-filter:saturate(180%) blur(12px)}
+.header-inner{max-width:1080px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;gap:18px}
+.logo-wrap{width:64px;height:64px;background:white;border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;padding:6px}
+.logo-wrap img{width:100%;height:100%;object-fit:contain}
+.title h1{margin:0;font-size:18px;font-weight:800;letter-spacing:-0.02em;color:var(--text)}
+.title p{margin:2px 0 0 0;font-size:12px;color:var(--muted)}
+.progress-wrap{max-width:1080px;margin:0 auto;padding:0 24px 16px 24px}
+.progress{height:6px;background:#eef1f5;border-radius:999px;overflow:hidden}
+.progress div{height:100%;background:var(--primary);width:20%;transition:width .4s ease}
+.steps-nav{max-width:1080px;margin:0 auto;padding:0 24px 20px 24px;display:flex;gap:8px;overflow-x:auto}
+.steps-nav button{white-space:nowrap;padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:white;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted)}
+.steps-nav button.active{background:var(--primary);color:white;border-color:var(--primary)}
+.main{max-width:720px;margin:0 auto;padding:0 24px 40px 24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;box-shadow:0 2px 12px rgba(16,24,40,.04)}
+.section-title{font-size:16px;font-weight:800;margin:0 0 4px 0;letter-spacing:-0.01em}
+.section-sub{font-size:12px;color:var(--muted);margin:0 0 20px 0}
+.field{margin-bottom:18px}
+.field label.label{font-size:13px;font-weight:600;margin-bottom:8px;display:block}
+.input{width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:12px;font-size:14px;background:white;color:var(--text);outline:none;transition:border .2s}
+.input:focus{border-color:var(--primary);box-shadow:0 0 0 3px color-mix(in srgb, var(--primary) 15%, transparent)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.grid-2{grid-template-columns:1fr}}
+.option-group{display:flex;flex-wrap:wrap;gap:8px}
+.option{position:relative;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border:1px solid var(--border);border-radius:999px;background:white;font-size:13px;cursor:pointer;user-select:none;transition:all .15s}
+.option input{position:absolute;opacity:0;pointer-events:none}
+.option:has(input:checked){background:var(--primary);color:white;border-color:var(--primary);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.option-card{display:flex;gap:10px;padding:12px 14px;border:1px solid var(--border);border-radius:12px;background:white;cursor:pointer;transition:all .15s}
+.option-card:has(input:checked){border-color:var(--primary);background:color-mix(in srgb, var(--primary) 6%, white)}
+.option-card input{margin-top:2px}
+.s{display:none}.s.active{display:block}
+.footer{margin-top:24px;display:flex;justify-content:space-between;gap:12px;padding-top:20px;border-top:1px solid var(--border)}
+.btn{padding:12px 20px;border-radius:12px;border:none;font-weight:700;font-size:14px;cursor:pointer}
+.btn-primary{background:var(--primary);color:white}
+.btn-secondary{background:white;border:1px solid var(--border);color:var(--text)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.msg{margin-top:16px;padding:14px;border-radius:12px;font-size:13px;display:none}
+.msg.ok{display:block;background:#eef9f0;border:1px solid #c6e8cc;color:#1a5a2a}
+.msg.err{display:block;background:#fdf0f0;border:1px solid #f0c2c2;color:#7a1a1a}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;background:var(--accent);color:var(--primary);font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-left:8px}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="header-inner">
+<div class="logo-wrap"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIbGNtcwIQAABtbnRyUkdCIFhZWiAH4gADABQACQAOAB1hY3NwTVNGVAAAAABzYXdzY3RybAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWhhbmSdkQA9QICwPUB0LIGepSKOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAABxjcHJ0AAABDAAAAAx3dHB0AAABGAAAABRyWFlaAAABLAAAABRnWFlaAAABQAAAABRiWFlaAAABVAAAABRyVFJDAAABaAAAAGBnVFJDAAABaAAAAGBiVFJDAAABaAAAAGBkZXNjAAAAAAAAAAV1UkdCAAAAAAAAAAAAAAAAdGV4dAAAAABDQzAAWFlaIAAAAAAAAPNUAAEAAAABFslYWVogAAAAAAAAb6AAADjyAAADj1hZWiAAAAAAAABilgAAt4kAABjaWFlaIAAAAAAAACSgAAAPhQAAtsRjdXJ2AAAAAAAAACoAAAB8APgBnAJ1A4MEyQZOCBIKGAxiDvQRzxT2GGocLiBDJKwpai5+M+s5sz/WRldNNlR2XBdkHWyGdVZ+jYgskjacq6eMstu+mcrH12Xkd/H5////2wBDAAcFBQYFBAcGBQYIBwcIChELCgkJChUPEAwRGBUaGRgVGBcbHichGx0lHRcYIi4iJSgpKywrGiAvMy8qMicqKyr/2wBDAQcICAoJChQLCxQqHBgcKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKir/wAARCACIAXEDASIAAhEBAxEB/8QAHAABAAIDAQEBAAAAAAAAAAAAAAYHBAUIAgMB/8QASBAAAQQCAQMCBAMEBQgHCQAAAQACAwQFEQYSITEHEyJBUWEUFXEWMoGxCDeRobMXIzZCYnR1tCRScoOywdE0NVNWc4KU4fD/xAAaAQEAAwEBAQAAAAAAAAAAAAAAAQIDBAUG/8QANREAAgIBAgMFBgUDBQAAAAAAAAECEQMEIRIxQRNRYXGBBRQykaHwIjOxwdEGQuEVNJKy8f/aAAwDAQACEQMRAD8A6RREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREB8rVmClUmtW5WwwQMdJLI86DGgbJP2AC0/GOZ4HmNeabj95tkQO6ZWFjmPZvwS1wB0fkfHn5grcWqsF6nNUtxNmrzxujljcNh7XDRB+xBXPOf4HyH0x51SyvDJi6lanbDC+R3wxl7gPZm+rT20f08OAKyy5OzXE+S5noaPT4dQpQlKp9O5k853JkX80dPVzN+kzE1ak8VevL0xyukne1/uN18Q6WAKx8hkKmKx817I2GV6sDC+SWQ6DQFUebzzcjczt69XfQmq4+g25C8EiJzbErndLtfG3RBBHkH5HYGk9RZuXeofKMZgcfTfUxtppmrwSO0elp0ZpwO7ANjTT43r946Xj6XXwnqM0eO7kuFXzXBFuvnZ3e5vL2cJtRSW79E/UubjPLMNy/HPu4C3+IhjkMT9scxzXaB0Q4A+CDtbh3UGHoG3a7A/VR7hHDMfwbjzMZjy6V7ne5YsP/emk0AXa+Q7AADwPqdkyFzgxhcfAGyvcjdbnjZljWRrF8PSznXgXIPUK16uQ18rPlHh0zhkKszXezCzR38J+FgGuxGt9tb336LVJ8Q9dMlyLn1XFWcXVix16YxQmPq96PYPSXEnTvHfQHn7d7sWWKq2dno+1FkWWPHBQ2XIIqOwXr3fyvPquOkxlVuIu221oXM6vfaHuDWOcSdHuQSOkf3d7xV4zUuRx6nSZdK0sqq9wipj1A9bMnxXnM+GxmMqTVqXQLDrHV1ylzQ49JBAb2cB3B7q4adpl2hBajBDJ42yNB8gOGx/NIzUm0ugzaXLhhDJNbS5FCer+e51R9RRXxVjJ1aPTH+XtpBwbOS0F2+n993V1DR+QHbv3vTCvvS4DHyZdgZkHVo3WmAaDZS0dY7f7W1U/qN605PifNpMLiMfUmiptjNl9kOLpC5ofppa4BvwuHcg91bGJykeXwFLKwMc2K5WZYYw93AOaHAfr3VIVxPc7dYsnu2HixqKrZrm/P9SsfXLm+a4tHiaeAtmm+37k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" alt="logo"></div>
+<div class="title"><h1>Instituto Universitario Internacional de Toluca <span class="badge">Egresados</span></h1><p>Cuestionario de seguimiento y vinculación de egresados · Tiempo estimado 7 min · Confidencial</p></div>
+</div>
+<div class="progress-wrap"><div class="progress"><div id="bar"></div></div></div>
+<div class="steps-nav">
+<button id="b1" class="active" onclick="show(1)">1 · Datos</button>
+<button id="b2" onclick="show(2)">2 · Académica</button>
+<button id="b3" onclick="show(3)">3 · Laboral</button>
+<button id="b4" onclick="show(4)">4 · Impacto</button>
+<button id="b5" onclick="show(5)">5 · Contacto</button>
+</div>
+</div>
+
+<div class="main">
+<form id="f" class="card">
+<div class="s active" data-s="1">
+<div class="section-title">1. Datos de contacto</div>
+<div class="section-sub">Información básica para mantener el vínculo. Tus datos son confidenciales y solo para fines estadísticos.</div>
+<div class="field"><label class="label">Nombre completo *</label><input name="nombre" required class="input" placeholder="Ej. Ana García López"></div>
+<div class="grid-2"><div class="field"><label class="label">Correo electrónico *</label><input name="email" type="email" required class="input" placeholder="ana@ejemplo.com"></div>
+<div class="field"><label class="label">Teléfono / WhatsApp</label><input name="telefono" class="input" placeholder="55 1234 5678"></div></div>
+</div>
+
+<div class="s" data-s="2">
+<div class="section-title">2. Trayectoria académica</div>
+<div class="section-sub">Selecciona UNA opción por nivel. Si egresaste de varios programas, elige el más reciente.</div>
+<div class="field"><label class="label">Preparatoria</label><div class="option-group"><label class="option"><input type="checkbox" id="prepa"><span>Preparatoria / Bachillerato</span></label></div></div>
+<div class="field"><label class="label">Licenciatura</label><div class="option-group" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<label class="option-card"><input type="radio" name="licenciaturas" value="Psicología"><span>Psicología</span></label>
+<label class="option-card"><input type="radio" name="licenciaturas" value="Educación"><span>Educación</span></label>
+<label class="option-card"><input type="radio" name="licenciaturas" value="Derecho"><span>Derecho</span></label>
+<label class="option-card"><input type="radio" name="licenciaturas" value="Comunicación y Publicidad"><span>Comunicación y Publicidad</span></label>
+<label class="option-card"><input type="radio" name="licenciaturas" value="Administración de Empresas"><span>Administración</span></label>
+<label class="option-card"><input type="radio" name="licenciaturas" value="Cine y Producción Audiovisual"><span>Cine y Producción</span></label>
+<label class="option-card"><input type="radio" name="licenciaturas" value="Ciencias Forenses"><span>Ciencias Forenses</span></label>
+<label class="option-card"><input type="radio" name="licenciaturas" value="Arquitectura"><span>Arquitectura</span></label>
+<label class="option-card"><input type="radio" name="licenciaturas" value="Diseño Gráfico"><span>Diseño Gráfico</span></label>
+<label class="option-card"><input type="radio" name="licenciaturas" value="Comercio Exterior y Legislación Aduanera"><span>Comercio Exterior</span></label>
+<label class="option-card"><input type="radio" name="licenciaturas" value="Contaduría Pública"><span>Contaduría</span></label>
+<label class="option-card"><input type="radio" name="licenciaturas" value="Informática Administrativa"><span>Informática</span></label>
+<label class="option-card"><input type="radio" name="licenciaturas" value="Mercadotecnia"><span>Mercadotecnia</span></label>
+<label class="option-card"><input type="radio" name="licenciaturas" value="Nutrición y Dietética"><span>Nutrición</span></label>
+<label class="option-card"><input type="radio" name="licenciaturas" value="Turismo y Hotelería"><span>Turismo</span></label>
+</div></div>
+<div class="field"><label class="label">Especialidad</label><div class="option-group"><label class="option"><input type="checkbox" id="esp"><span>Especialidad en estrategias pedagógicas</span></label></div></div>
+<div class="field"><label class="label">Maestría</label><div class="option-group">
+<label class="option-card"><input type="radio" name="maestrias" value="Maestría en Educación"><span>Educación</span></label>
+<label class="option-card"><input type="radio" name="maestrias" value="Maestría en Educación Especial"><span>Educación Especial</span></label>
+<label class="option-card"><input type="radio" name="maestrias" value="Maestría en Tanatología"><span>Tanatología</span></label>
+<label class="option-card"><input type="radio" name="maestrias" value="Maestría en Mercadotecnia"><span>Mercadotecnia</span></label>
+<label class="option-card"><input type="radio" name="maestrias" value="Maestría en Ciencias Jurídico Penales"><span>Jurídico Penal</span></label>
+<label class="option-card"><input type="radio" name="maestrias" value="Maestría en Desarrollo Organizacional"><span>Desarrollo Organizacional</span></label>
+</div></div>
+<div class="field"><label class="label">Doctorado</label><div class="option-group"><label class="option"><input type="checkbox" id="doc"><span>Doctorado en Educación</span></label></div></div>
+<div class="field"><label class="label">Posdoctorado</label><div class="option-group">
+<label class="option-card"><input type="radio" name="posdoctorados" value="Posdoctorado en Investigación Educativa"><span>Investigación Educativa</span></label>
+<label class="option-card"><input type="radio" name="posdoctorados" value="Posdoctorado en Administración Educativa"><span>Administración Educativa</span></label>
+</div></div>
+<div class="grid-2"><div class="field"><label class="label">Año de egreso *</label><select name="anio_egreso" required class="input"><option value="">Selecciona</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option><option>2018</option><option>2017</option><option>2016</option><option>2015</option><option>2014</option><option>2013</option><option>2012</option><option>2011</option><option>2010</option><option>2009</option><option>2008</option><option>2005</option><option>2000</option><option>1995</option></select></div>
+<div class="field"><label class="label">Diplomado (si aplica)</label><input name="diplomado" class="input" placeholder="Nombre del diplomado"></div></div>
+</div>
+
+<div class="s" data-s="3">
+<div class="section-title">3. Trayectoria laboral</div>
+<div class="section-sub">Nos ayuda a medir el impacto real de tu formación en el mercado laboral.</div>
+<div class="field"><label class="label">Situación actual *</label><div class="option-group">
+<label class="option-card"><input type="radio" name="situacion_laboral" value="Sí, trabajo actualmente." required><span>Sí, trabajo actualmente</span></label>
+<label class="option-card"><input type="radio" name="situacion_laboral" value="Sí, trabajo y además tengo una empresa, agencia, despacho o negocio propio."><span>Trabajo + empresa propia</span></label>
+<label class="option-card"><input type="radio" name="situacion_laboral" value="Tengo una empresa, agencia, despacho o negocio propio."><span>Empresa propia</span></label>
+<label class="option-card"><input type="radio" name="situacion_laboral" value="Actualmente no trabajo."><span>Actualmente no trabajo</span></label>
+<label class="option-card"><input type="radio" name="situacion_laboral" value="Estoy estudiando."><span>Estoy estudiando</span></label>
+</div></div>
+<div class="grid-2"><div class="field"><label class="label">Estado en México</label><select name="estado_mx" class="input"><option value="">Selecciona estado</option><option>Aguascalientes</option><option>Baja California</option><option>Ciudad de México</option><option>Estado de México</option><option>Jalisco</option><option>Nuevo León</option><option>Puebla</option><option>Sonora</option><option>Veracruz</option><option>Yucatán</option><option>Otro</option></select></div>
+<div class="field"><label class="label">País extranjero</label><input name="pais_extranjero" class="input" placeholder="Si aplica"></div></div>
+<div class="field"><label class="label">Sector</label><div class="option-group" id="sect">
+<label class="option"><input type="checkbox" value="Público"><span>Público</span></label>
+<label class="option"><input type="checkbox" value="Privado"><span>Privado</span></label>
+<label class="option"><input type="checkbox" value="Educativo"><span>Educativo</span></label>
+<label class="option"><input type="checkbox" value="Salud"><span>Salud</span></label>
+<label class="option"><input type="checkbox" value="Empresa o negocio propio"><span>Empresa propia</span></label>
+<label class="option"><input type="checkbox" value="Trabajo independiente"><span>Independiente</span></label>
+</div><input name="sector_otro" class="input" style="margin-top:10px" placeholder="Otro sector"></div>
+<div class="grid-2"><div class="field"><label class="label">Puesto</label><select name="puesto" class="input"><option value="">Selecciona</option><option>Director / Gerente</option><option>Propietario de negocio</option><option>Docente</option><option>Coordinador</option><option>Analista</option><option>Otro</option></select><input name="puesto_otro" class="input" style="margin-top:8px" placeholder="Otro puesto"></div>
+<div class="field"><label class="label">Relación estudios-trabajo</label><select name="relacion_estudios" class="input"><option>Sí, directamente.</option><option>Sí, parcialmente.</option><option>No.</option><option>Actualmente no estoy trabajando.</option></select></div></div>
+</div>
+
+<div class="s" data-s="4">
+<div class="section-title">4. Impacto de tu formación</div>
+<div class="section-sub">Evaluación honesta para mejorar programas futuros. Harvard/Stanford usan esta sección para medir ROI académico.</div>
+<div class="field"><label class="label">¿Tu formación te ayudó profesionalmente?</label><select name="impacto_desarrollo" class="input"><option>Mucho, contribuyó de manera decisiva a mi desarrollo profesional.</option><option>Bastante, contribuyó de manera importante</option><option>Algo, contribuyó aunque su impacto fue limitado</option><option>Poco, contribuyó mínimamente</option><option>Nada, no contribuyó</option></select></div>
+<div class="field"><label class="label">Aspectos valiosos (selecciona varios)</label><div class="option-group" id="asp">
+<label class="option"><input type="checkbox" value="Aplicar los conocimientos"><span>Aplicar conocimientos</span></label>
+<label class="option"><input type="checkbox" value="Analizar críticamente"><span>Pensamiento crítico</span></label>
+<label class="option"><input type="checkbox" value="Trabajar y convivir"><span>Trabajo colaborativo</span></label>
+<label class="option"><input type="checkbox" value="Crear proyectos propios"><span>Crear proyectos propios</span></label>
+<label class="option"><input type="checkbox" value="Redes profesionales"><span>Redes profesionales</span></label>
+</div><input name="aspecto_otro" class="input" style="margin-top:10px" placeholder="Otro aspecto valioso"></div>
+<div class="field"><label class="label">¿Qué fue lo más valioso?</label><textarea name="mas_valioso_abierta" rows="3" class="input" placeholder="Cuéntanos brevemente"></textarea></div>
+<div class="field"><label class="label">¿Qué mejorarías?</label><textarea name="recomendaciones_abierta" rows="3" class="input" placeholder="Idiomas, tecnología, IA, labs, biblioteca..."></textarea></div>
+</div>
+
+<div class="s" data-s="5">
+<div class="section-title">5. Mantengamos el contacto</div>
+<div class="section-sub">Elige cómo quieres seguir vinculado con la comunidad.</div>
+<div class="field"><label class="label">¿Continuar en contacto?</label><div class="option-group">
+<label class="option"><input type="radio" name="continuar_contacto" value="Si" required><span>Sí</span></label>
+<label class="option"><input type="radio" name="continuar_contacto" value="No"><span>No</span></label>
+<label class="option"><input type="radio" name="continuar_contacto" value="Por el momento no."><span>Por el momento no</span></label>
+</div></div>
+<div class="field"><label class="label">Información que te interesa</label><div class="option-group" id="inte">
+<label class="option"><input type="checkbox" value="Eventos para egresados"><span>Eventos</span></label>
+<label class="option"><input type="checkbox" value="Bolsa de trabajo"><span>Bolsa trabajo</span></label>
+<label class="option"><input type="checkbox" value="Diplomados"><span>Diplomados</span></label>
+<label class="option"><input type="checkbox" value="Posgrados"><span>Posgrados</span></label>
+</div><input name="interes_otro" class="input" style="margin-top:10px" placeholder="Otro interés"></div>
+<div class="field"><label class="label">Participación</label><select name="participacion" class="input"><option>Sí, como docente</option><option>Charlas de orientación vocacional</option><option>Como mentor</option><option>Eventos de egresados</option><option>Por el momento no.</option><option>Sí, de otra manera</option></select><input name="participacion_otra" class="input" style="margin-top:8px" placeholder="Otra manera"></div>
+</div>
+
+<div class="footer">
+<button type="button" id="prev" class="btn btn-secondary" style="display:none">← Anterior</button>
+<button type="button" id="next" class="btn btn-primary">Siguiente →</button>
+<button type="submit" id="submit" class="btn btn-primary" style="display:none">Enviar a Sheets</button>
+</div>
+<div id="msg" class="msg"></div>
+</form>
+<div style="text-align:center;margin-top:20px;font-size:11px;color:var(--muted)">Aviso de privacidad: Tus datos serán tratados de forma confidencial y solo para fines estadísticos y de vinculación institucional.</div>
+</div>
+
+<script>
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx6UoLZniXAXffKxRhpY6Z70q2WtYtlx7VPK16UNJYShD_4C40J2zWVfItCpe0_NiYC/exec";
+const FORM_ID = "IUIT_TOLUCA";
+const SHEET_TAB = "Respuestas_IUIT_TOLUCA";
+let cur=1;
+function show(n){cur=n; document.querySelectorAll('.s').forEach(s=>s.classList.remove('active')); document.querySelector('[data-s="'+n+'"]').classList.add('active'); document.getElementById('prev').style.display=n==1?'none':'inline-block'; document.getElementById('next').style.display=n==5?'none':'inline-block'; document.getElementById('submit').style.display=n!=5?'none':'inline-block'; document.querySelectorAll('.steps-nav button').forEach((b,i)=>{b.className=(i+1)==n?'active':''}); document.getElementById('bar').style.width=(n/5*100)+'%'; window.scrollTo({top:0,behavior:'smooth'});}
+document.getElementById('next').onclick=function(){if(cur<5) show(cur+1)};
+document.getElementById('prev').onclick=function(){if(cur>1) show(cur-1)};
+function getC(id){return Array.from(document.querySelectorAll(id+' input:checked')).map(function(i){return i.value}).join(' | ');}
+document.getElementById('f').addEventListener('submit', async function(e){
+ e.preventDefault();
+ var fd=new FormData(e.target); var o={}; fd.forEach(function(v,k){o[k]=v;});
+ o.folio='EGR-'+new Date().getFullYear()+'-'+Math.random().toString(36).substr(2,4).toUpperCase();
+ o.timestamp=new Date().toISOString();
+ o.form_id=FORM_ID; o._sheet_tab=SHEET_TAB;
+ o.preparatoria=document.getElementById('prepa')?.checked?'Sí':'';
+ o.especialidad_pedagogicas=document.getElementById('esp')?.checked?'Sí':'';
+ o.doctorado_educacion=document.getElementById('doc')?.checked?'Sí':'';
+ o.sectores=getC('#sect'); o.aspectos_valiosos=getC('#asp'); o.intereses=getC('#inte');
+ var headers=["timestamp","folio","form_id","nombre","email","telefono","preparatoria","licenciaturas","especialidad_pedagogicas","maestrias","doctorado_educacion","posdoctorados","anio_egreso","diplomado","situacion_laboral","pais_tipo","estado_mx","pais_extranjero","sectores","sector_otro","puesto","puesto_otro","relacion_estudios","impacto_desarrollo","aspectos_valiosos","aspecto_otro","mas_valioso_abierta","recomendaciones_abierta","continuar_contacto","intereses","interes_otro","participacion","participacion_otra"];
+ headers.forEach(function(h){if(!(h in o)) o[h]='';});
+ var msg=document.getElementById('msg'); var btn=document.getElementById('submit');
+ btn.textContent='Enviando...'; btn.disabled=true;
+ try{
+   await fetch(WEB_APP_URL, {method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(o)});
+   msg.className='msg ok'; msg.textContent='¡Enviado! Folio: '+o.folio+' - Pestaña: '+SHEET_TAB+' - Actualiza tu Sheet (Ctrl+R).'; msg.style.display='block';
+ }catch(err){
+   msg.className='msg err'; msg.textContent='Error: '+err.message; msg.style.display='block';
+ }finally{btn.textContent='Enviar a Sheets'; btn.disabled=false;}
+});
+show(1);
+</script>
+</body>
+</html>
